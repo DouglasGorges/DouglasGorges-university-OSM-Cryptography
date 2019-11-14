@@ -22,51 +22,46 @@ public class EncryptDecrypt {
 		key = in.nextInt();
 		System.out.println("Enter the encrypted text for decryption:");
 		String encryptedText = in.next();
-		
+
 		decrypt(encryptedText, key);
-		
+
 	}
 
-	public static void encrypt(String str, int key) {
+	public static void encrypt(String text, int key) {
 
-		boolean checkdown = false; // check whether it is moving downward or upward
+		boolean goDown = false;
 		int j = 0;
-		int row = key; // no of row is the no of key entered by user
-		int col = str.length(); // column length is the size of string
-		char[][] a = new char[row][col];
-		// we create a matrix of a of row *col size
+		int columns = text.length();
+		char[][] matrix = new char[key][columns];
+		String encryptedText = "";
 
-		for (int i = 0; i < col; i++) { // matrix visitin in key order and putting the character of text
+		for (int i = 0; i < columns; i++) {
 
-			if (j == 0 || j == row - 1)
-				checkdown = !checkdown;
-			a[j][i] = str.charAt(i);
-			if (checkdown) {
+			if (j == (key - 1) || j == 0) {
+				goDown = !goDown;
+			}
 
+			matrix[j][i] = text.charAt(i);
+
+			if (goDown) {
 				j++;
-			} else
+
+			} else {
 				j--;
-		}
-
-		// visiting the matrix in usual order to get encryptedText
-		for (int i = 0; i < row; i++) {
-			for (int k = 0; k < col; k++) {
-				System.out.print(a[i][k] + "  ");
 			}
-			System.out.println();
 		}
-		String en = "";
 
-		System.out.println("----------------------");
-		for (int i = 0; i < row; i++) {
-			for (int k = 0; k < col; k++) {
-				if (a[i][k] != 0)
-					en = en + a[i][k];
+		System.out.print("Encrypted text: ");
 
+		for (int i = 0; i < key; i++) {
+			for (int k = 0; k < columns; k++) {
+				if (matrix[i][k] != 0) {
+					encryptedText += matrix[i][k];
+				}
 			}
-
 		}
-		System.out.println(en);// printing the encryptedText
+
+		System.out.println(encryptedText);
 
 	}
 
